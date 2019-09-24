@@ -296,4 +296,44 @@ class SplArray extends \ArrayObject
         return substr($str,strpos($str,"\n")+1);
     }
 
+    function hset($key, $field, $value): void
+    {
+        $this[$key][$field] = $value;
+    }
+
+    function hget($key)
+    {
+        $data = $this->getArrayCopy();
+        if (isset($data[$key])) {
+            return $data[$key];
+        }
+        return null;
+    }
+
+    function hdel($key, $field): void
+    {
+        if (isset($this[$key])) {
+            unset($this[$key]);
+        }
+
+        if (isset($this[$key][$field])) {
+            unset($this[$key][$field]);
+        }
+
+    }
+
+    function hkeys($key)
+    {
+        $data = $this->getArrayCopy();
+        if (isset($data[$key])) {
+            return array_keys($data[$key]);
+        }
+        return [];
+    }
+
+    function flushHKeys()
+    {
+
+    }
+
 }
